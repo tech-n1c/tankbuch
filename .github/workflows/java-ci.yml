@@ -33,7 +33,7 @@ jobs:
         cache: maven
         
     - name: Test Backend
-      run: mvn -B test
+      run: mvn -B test -Dspring.profiles.active=test
       
     - name: Build Backend
       run: mvn -B package
