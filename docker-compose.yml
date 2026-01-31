@@ -1,27 +1,30 @@
-version: '3.8'
 services:
-  tankbuch:
-    image: ghcr.io/tech-n1c/tankbuch:latest
-    ports:
-      - "8042:8080"
+  backend:
+    image: ghcr.io/tech-n1c/tankbuch-backend:latest
+    ports: ["8094:8080"]
     environment:
-      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
-      - DB_USER=${POSTGRES_USER}
-      - DB_PASSWORD=${POSTGRES_PASSWORD}
-      - SPRING_PROFILES_ACTIVE=PROD
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tankbuch
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
     depends_on:
       - db
-    restart: unless-stopped
+
+  frontend:
+    image: ghcr.io/tech-n1c/tankbuch-frontend:latest
+    ports: ["8095:3000"]
+    depends_on:
+      - backend
 
   db:
     image: postgres:16-alpine
+    container_name: tankbuch-db
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      POSTGRES_DB: tankbuch
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - tankbuch_postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
-  postgres_data:
+  tankbuch_postgres_data:
