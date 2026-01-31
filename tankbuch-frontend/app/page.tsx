@@ -8,10 +8,13 @@ export default function Home() {
     const [backendStatus, setBackendStatus] = useState("Loading...");  // ← Initialwert
 
     useEffect(() => {
-        fetch('/api/test/hello')
-            .then(res => res.text())
-            .then(data => setBackendStatus(data))
-            .catch(err => setBackendStatus('ERROR: ' + err.message));
+      // Im Docker Network: "backend" statt "localhost"
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://backend:8080';
+
+      fetch(`${apiUrl}/api/test/hello`)
+        .then(res => res.text())
+        .then(data => setBackendStatus(data))
+        .catch(err => setBackendStatus('ERROR: ' + err.message));
     }, []);
 
     return (
