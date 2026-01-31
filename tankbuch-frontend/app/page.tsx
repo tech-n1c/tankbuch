@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
     const [name, setName] = useState("Hello...");
-    const [backendStatus, setBackendStatus] = useState("Loading...");  // ← Initialwert
+    const [backendStatus, setBackendStatus] = useState("Loading...");
 
     useEffect(() => {
       // Im Docker Network: "backend" statt "localhost"
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://backend:8080';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://100.100.42.5:8094';
 
       fetch(`${apiUrl}/api/test/hello`)
         .then(res => res.text())
