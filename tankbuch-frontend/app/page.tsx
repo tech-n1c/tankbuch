@@ -1,14 +1,15 @@
 import Image from "next/image";
+import { useEffect, useState} from "react";
 
 export default function Home() {
     const [name, setName] = React.useState("Hello...");
 
     useEffect(() => {
-        fetch("/api/test/hello")}
-        .then((res => res.text()
-        .then(data => setName(data))
-        .catch(err => setName('Error: ' + err.message)
-    }, [])
+        fetch('/api/test/hello')
+          .then(res => res.text())
+          .then(data => setBackendStatus(data))
+          .catch(err => setBackendStatus('ERROR: ' + err.message))
+      }, [])
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
