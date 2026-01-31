@@ -23,6 +23,9 @@ jobs:
       run:
         working-directory: tankbuch-backend
     steps:
+    - name: Conventional Commits Action
+      uses: webiny/action-conventional-commits@v1.3.0
+    
     - uses: actions/checkout@v4
     
     - name: Set up JDK 25
