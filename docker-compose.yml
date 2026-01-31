@@ -8,7 +8,7 @@ services:
       - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
-      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_PROFILES_ACTIVE=PROD
     depends_on:
       - db
     restart: unless-stopped
